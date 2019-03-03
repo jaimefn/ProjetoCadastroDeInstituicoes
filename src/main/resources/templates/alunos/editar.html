@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Editar Instituição</title>
+
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+
+
+
+</head>
+<body>
+
+	<div th:replace="fragments/fragments :: header"></div>
+	
+	<div class="container">
+		<h2>Editar Aluno</h2>
+
+		<form method="post" action="/alunos/editar"
+			th:object="${aluno}">
+			
+			<input type="hidden" th:field="*{id}" />
+
+			<div class="form-group">
+				<label for="txt-nome">Nome</label> 
+				<input type="text"	class="form-control" id="txt-nome" th:field="*{name}" />
+			</div>
+			<div class="form-group">
+				<label for="txt-idade">Idade</label>
+				<input type="text"	class="form-control" id="txt-idade" th:field="*{age}" />
+			</div>
+			<div class="form-group">
+				<label>Instituicao</label> 
+				<select class="form-control" th:field="*{instituicao.id}">
+					<option th:each="inst: ${instituicoes}" th:value="${inst.id}" th:text="${inst.name}"></option>	
+				</select>
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-default">Salvar</button>
+			</div>
+
+		</form>
+
+	</div>
+
+
+
+	<div th:replace="fragments/fragments :: footer"></div>
+	
+	<script src="/webjars/jquery/3.3.1-2/jquery.min.js"></script>
+
+</body>
+</html>

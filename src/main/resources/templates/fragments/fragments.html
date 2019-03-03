@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Insert title here</title>
+
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+
+
+</head>
+<body>
+<div class="container">
+<nav class="navbar navbar-inverse" th:fragment="header">
+  <div class="">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">WebTreinamentos</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Início</a></li>
+      <li><a href="/instituicoes/index">Instituições</a></li>
+      <li><a href="/alunos/index">Alunos</a></li>
+    </ul>
+  </div>
+</nav>
+</div>
+
+<div style="text-align: center" th:fragment="footer">
+
+&copy 2019 - WebTreinamentos
+
+</div>
+
+
+
+
+
+</body>
+</html>

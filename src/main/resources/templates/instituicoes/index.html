@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Insert title here</title>
+
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+
+</head>
+<body>
+
+	<div th:replace="fragments/fragments :: header"></div>
+
+	<div class="container">
+		<div class="row">
+			<h2>Lista de Instituições Cadastradas</h2>
+			<a href="/instituicoes/inserir" class="btn btn-default">Cadastrar
+				Instituição</a>
+		</div>
+
+		<div class="row">
+			<div class="form-group">
+				<label for="txt-pesquisa-instituicao">Pesquisar</label> <input
+					type="text" id="txt-pesquisar" class="form-control" />
+			</div>
+			<button class="btn btn-default" id="btn-pesquisar">Pesquisar</button>
+		</div>
+		<div class="row">
+		<table class="table" id="tbl">
+			<thead>
+				<th>Nome Instituição</th>
+				<th>Endereço</th>
+				<th>Ações</th>
+			</thead>
+			<tbody>
+				<tr th:each="instituicao: ${instituicoes}">
+					<td th:text="${instituicao.name}"></td>
+					<td th:text="${instituicao.address}"></td>
+					<td><a
+						th:href="@{/instituicoes/editar/{id}(id=${instituicao.id})}">Editar | </a>
+						<a th:href="@{/instituicoes/apagar/{id}(id=${instituicao.id})}">Excluir</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	</div>
+
+	<div th:replace="fragments/fragments :: footer"></div>
+
+	<script src="/webjars/jquery/3.3.1-2/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('#btn-pesquisar').click(function(){
+				$.ajax({
+					method: 'GET',
+					url: '/instituicoes/pesquisar/' + $('#txt-pesquisar').val(),
+					success: function(data){
+						$('#tbl tbody > tr').remove();
+						$.each(data,function(){
+							$('#tbl tbody').append(
+									
+								'<tr><td>' + this.name +
+								'</td><td>' + this.address  +
+								'</td><td>' +
+								'<a href="/instituicoes/editar/' + this.id + '">Editar | </a>' +
+								'<a href="/instituicoes/apagar/' + this.id + '">Excluir</a>' +
+								'</tr>'
+							);
+						});
+					},
+					error: function(){
+						alert('Não foi possível executar a pesquisa');
+					}
+						
+				});
+			});
+		});
+		
+	</script>
+
+</body>
+</html>
